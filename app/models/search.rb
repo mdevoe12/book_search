@@ -2,8 +2,14 @@ class Search < ApplicationRecord
   belongs_to :title, optional: true
   belongs_to :author, optional: true
 
+  scope :find_title, lambda { |name| where(titles: { name: name }) }
+  scope :find_author, lambda { |name| where(authors: { name: name }) }
+
   def self.is_search_unique?(params)
-    # Search.where(title.name: params[:title], author.name: params[:author])
-    Search.joins(:title).where(titles: { name: params[:title] }).empty?
+    search = Search.includes(:title, :author)
+                   .find_title(params[:title])
+                   .find_author(params[:author])
+
+    search.empty?
   end
 end
