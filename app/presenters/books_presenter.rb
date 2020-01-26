@@ -21,4 +21,12 @@ class BooksPresenter
       }  
     end.compact
   end
+
+  def sort(data)
+    @sort_by == 'author' ? sort_by_author(data) : sort_by_title(data)
+  end
+
+  def sort_by_title(data)
+    data.sort! { |x, y| x[:title] <=> y[:title] }
+  end
 end
