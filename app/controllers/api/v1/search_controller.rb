@@ -1,6 +1,7 @@
 class Api::V1::SearchController < ApplicationController
   def index
-    response = Faraday.get('http://openlibrary.org/search.json', { title: 'american+gods' })
+    # response = Faraday.get('http://openlibrary.org/search.json', { title: 'american+gods' })
+    response = OpenLibraryService.get
     result = JSON.parse(response.body)
     # result = {
     #   data: 'sample data'
