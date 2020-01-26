@@ -1,6 +1,7 @@
 class Api::V1::SearchController < ApplicationController
   def index
     return invalid_search if search_params.empty?
+    is_search_unique = Search.is_search_unique?(search_params)
 
     response = OpenLibraryService.get(search_params)
     result = JSON.parse(response.body)
