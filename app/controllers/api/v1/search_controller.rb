@@ -23,7 +23,7 @@ class Api::V1::SearchController < ApplicationController
   end
 
   def sort_params
-    params.permit(:sort_by)
+    params.permit(:sort_by, :order_by)
   end
 
 
