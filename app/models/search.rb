@@ -6,10 +6,30 @@ class Search < ApplicationRecord
   scope :find_author, lambda { |name| where(authors: { name: name }) }
 
   def self.is_search_unique?(params)
-    search = Search.includes(:title, :author)
-                   .find_title(params[:title])
-                   .find_author(params[:author])
+    title =  params[:title]&.downcase
+    author = params[:author]&.downcase
+    search = find_search(title, author)
 
-    search.empty?
+    if search.empty?
+      create_search(title, author)
+      true
+    else
+      false
+    end
+  end
+
+  private
+
+  def self.find_search(title, author)
+    Search.includes(:title, :author)
+          .find_title(title)
+          .find_author(author)
+  end
+
+  def self.create_search(title_name, author_name)
+    title = Title.find_or_create_by(name: title_name)
+    author = Author.find_or_create_by(name: author_name)
+
+    Search.create(title: title, author: author)
   end
 end
