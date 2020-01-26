@@ -9,6 +9,6 @@ class Api::V1::SearchController < ApplicationController
   private
 
   def search_params
-    params.permit(:title)
+    params.permit(:title, :author)
   end
 end
