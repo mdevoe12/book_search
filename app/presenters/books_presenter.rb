@@ -54,5 +54,4 @@ class BooksPresenter
   def sort_by_author_desc(data)
     data.sort! { |x, y| y[:author] <=> x[:author] }
   end
-
 end
