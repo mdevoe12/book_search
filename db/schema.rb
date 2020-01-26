@@ -10,12 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_26_191802) do
+ActiveRecord::Schema.define(version: 2020_01_26_192046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "authors", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "searches", force: :cascade do |t|
+    t.bigint "title_id"
+    t.bigint "author_id"
+    t.index ["author_id"], name: "index_searches_on_author_id"
+    t.index ["title_id"], name: "index_searches_on_title_id"
+  end
+
+  create_table "titles", force: :cascade do |t|
+    t.string "name"
   end
 
 end
