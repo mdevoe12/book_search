@@ -8,14 +8,10 @@ class Search < ApplicationRecord
   def self.is_search_unique?(params)
     title =  params[:title]&.downcase
     author = params[:author]&.downcase
-    search = find_search(title, author)
+    is_search_empty = find_search(title, author).empty?
 
-    if search.empty?
-      create_search(title, author)
-      true
-    else
-      false
-    end
+    create_search(title, author) if is_search_empty
+    is_search_empty
   end
 
   private
