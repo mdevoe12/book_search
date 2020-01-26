@@ -1,14 +1,15 @@
 class BooksPresenter
-  attr_reader :raw_info,
-              :sort_by
+  attr_reader :raw_info
 
   def initialize(response_body, sort_params)
     @raw_info = response_body['docs']
     @sort_by  = sort_params[:sort_by]
+    @order_by = sort_params[:order_by]
   end
 
   def self.format_data(response_body, params)
     books = new(response_body, params)
+
     formatted_data = books.format_raw_info
     books.sort(formatted_data)
   end
@@ -23,10 +24,35 @@ class BooksPresenter
   end
 
   def sort(data)
-    @sort_by == 'author' ? sort_by_author(data) : sort_by_title(data)
+    order = determine_sort_order
+
+    if @sort_by == 'author'
+      self.send("sort_by_author_#{order}", data)
+    else
+      self.send("sort_by_title_#{order}", data)
+    end
   end
 
-  def sort_by_title(data)
+  private
+
+  def determine_sort_order
+    @order_by == 'desc' ? 'desc' : 'asc'
+  end
+
+  def sort_by_title_asc(data)
     data.sort! { |x, y| x[:title] <=> y[:title] }
   end
+
+  def sort_by_title_desc(data)
+    data.sort! { |x, y| y[:title] <=> x[:title] }
+  end
+
+  def sort_by_author_asc(data)
+    data.sort! { |x, y| x[:author] <=> y[:author] }
+  end
+
+  def sort_by_author_desc(data)
+    data.sort! { |x, y| y[:author] <=> x[:author] }
+  end
+
 end
