@@ -1,5 +1,7 @@
 class OpenLibraryService
-  def self.get
-    Faraday.get('http://openlibrary.org/search.json', { title: 'american+gods' })
+  BASE_URL = 'http://openlibrary.org/search.json'
+
+  def self.get(params)
+    Faraday.get(BASE_URL, params)
   end
 end
