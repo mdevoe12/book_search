@@ -5,11 +5,12 @@ class Api::V1::SearchController < ApplicationController
     response = OpenLibraryService.get(search_params)
     is_search_unique = Search.is_search_unique?(search_params)
 
-    books_pres = BooksPresenter.new(JSON.parse(response.body))
+    parsed_body = JSON.parse(response.body)
+    books_data = BooksPresenter.format_data(parsed_body, sort_params)
 
     result = {
       is_search_unique: is_search_unique,
-      books: books_pres.format_raw_info
+      books: books_data
     }
 
     render json: result, status: 200
@@ -19,6 +20,10 @@ class Api::V1::SearchController < ApplicationController
 
   def search_params
     params.permit(:title, :author)
+  end
+
+  def sort_params
+    params.permit(:sort_by)
   end
 
 
