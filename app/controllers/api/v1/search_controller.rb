@@ -38,7 +38,7 @@ class Api::V1::SearchController < ApplicationController
     is_search_unique = Search.is_search_unique?(search_params)
 
     parsed_body = JSON.parse(response.body)
-    books_data = BooksPresenter.format_data(parsed_body, sort_params)
+    books_data  = BooksPresenter.format_data(parsed_body, sort_params)
 
     {
       is_search_unique: is_search_unique,
