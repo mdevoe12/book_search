@@ -3,6 +3,9 @@ class Api::V1::SearchController < ApplicationController
     return invalid_search if search_params.empty?
 
     response = OpenLibraryService.get(search_params)
+
+    return api_error if response.status != 200
+
     is_search_unique = Search.is_search_unique?(search_params)
 
     parsed_body = JSON.parse(response.body)
@@ -33,5 +36,13 @@ class Api::V1::SearchController < ApplicationController
     }
 
     render json: error, status: 400
+  end
+
+  def api_error
+    error = {
+      message: 'Open Library API has failed to respond properly. Please try again.'
+    }
+
+    render json: error, status: 503
   end
 end
