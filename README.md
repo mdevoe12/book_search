@@ -2,7 +2,7 @@
 
 This cleverly named application is a Ruby on Rails API built to search and filter books using the [OpenLibrary.org](https://openlibrary.org/dev/docs/api/search) API.
 
-The app is currently hosted on Heroku: [https://sheltered-fjord-62597.herokuapp.com](https://sheltered-fjord-62597.herokuapp.com) - In postman/browser/similar app you can use the aforementioned URL + /search? + desired parameters. See below for examples.
+The app is currently hosted on Heroku: [https://sheltered-fjord-62597.herokuapp.com](https://sheltered-fjord-62597.herokuapp.com) - In postman/browser/similar app you can use the aforementioned URL + endpoint + desired parameters. See below for examples.
 
 
 ## Usage
