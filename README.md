@@ -9,10 +9,10 @@ The app is currently hosted on Heroku: [https://sheltered-fjord-62597.herokuapp.
 
 | Param    | Required? | Input               | Example                                                 | Note                                                 |
 |----------|-----------|---------------------|---------------------------------------------------------|------------------------------------------------------|
-| title    | yes*      | string              | api/v1/search?title=american+gods                       |                                                      |
-| author   | yes*      | string              | api/v1/search?author=gaiman                             |                                                      |
-| sort_by  | no        | 'title' or 'author' | api/v1/search?author=gaiman&sort_by=title               | if not entered, results will sort by title           |
-| order_by | no        | 'asc' or 'desc'     | api/v1/search?author=gaiman&sort_by=title&order_by=desc | if not entered, results will sort by ascending (asc) |
+| title    | yes*      | string              | /api/v1/search?title=american+gods                       |                                                      |
+| author   | yes*      | string              | /api/v1/search?author=gaiman                             |                                                      |
+| sort_by  | no        | 'title' or 'author' | /api/v1/search?author=gaiman&sort_by=title               | if not entered, results will sort by title           |
+| order_by | no        | 'asc' or 'desc'     | /api/v1/search?author=gaiman&sort_by=title&order_by=desc | if not entered, results will sort by ascending (asc) |
 
 __*Either title or author has to be used in the search, otherwise you will receive a 400 error code. Both can be used, but at least one must be specified__
 
